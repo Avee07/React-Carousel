@@ -1,9 +1,33 @@
 import React from "react";
+import axios from "axios";
 
 const Form1 = () => {
+  const SubmitForm = async (event) => {
+    event.preventDefault();
+    try {
+      var formData = {
+        name: "Neeraj ",
+        email: "neeraj<EMAIL>",
+      };
+      // Send POST request to backend endpoint with form data
+      const response = await axios.post(
+        "http://localhost:3000/users",
+        formData
+      );
+      console.log("Data sent successfully:", response.data);
+      // Optionally, you can reset the form fields after successful submission
+      // setFormData({
+      //   name: 'Neeraj ',
+      //   email: 'neeraj<EMAIL>',
+      //   // Reset other fields as needed
+      // });
+    } catch (error) {
+      console.error("Error sending data:", error);
+    }
+  };
   return (
     <div className="p-20">
-      <form>
+      <form onSubmit={SubmitForm}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
