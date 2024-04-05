@@ -1,8 +1,11 @@
-
 import "./App.css";
-
+import Form1 from "./Components/Form/Form1";
 function App() {
-  return <h1 className="text-6xl font-bold underline text-red-500 bg-purple">Hello world!</h1>;
+  return (
+    <div>
+      <Form1 />
+    </div>
+  );
 }
 
 export default App;
