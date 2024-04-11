@@ -29,7 +29,7 @@ function App() {
       <p className="text-gray-900 my-6 text-3xl font-serif mt-24">
         React +Tailwind
       </p>
-      {/* <Form1 /> */}
+
       <Carousel slides={slides} />
     </div>
   );
