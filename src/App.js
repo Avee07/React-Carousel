@@ -25,7 +25,10 @@ function App() {
   ];
   return (
     <div className="w-full flex flex-col items-center justify-center pt-2 bg-gradient-to-r  from-yellow-100 to-gray-300 h-screen">
-      <p className="text-gray-900 my-6 text-3xl">The Carousel Show</p>
+      <p className="text-gray-900 my-6 text-4xl font-bold">The Carousel Show</p>
+      <p className="text-gray-900 my-6 text-3xl font-serif mt-24">
+        React +Tailwind
+      </p>
       {/* <Form1 /> */}
       <Carousel slides={slides} />
     </div>
