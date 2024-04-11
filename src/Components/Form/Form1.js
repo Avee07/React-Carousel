@@ -1,28 +1,48 @@
-import React from "react";
+import { React, useState } from "react";
 import axios from "axios";
 
 const Form1 = () => {
+  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
   const SubmitForm = async (event) => {
     event.preventDefault();
     try {
-      var formData = {
-        name: "Neeraj ",
-        email: "neeraj<EMAIL>",
-      };
-      // Send POST request to backend endpoint with form data
-      const response = await axios.post(
-        "http://localhost:3000/users",
-        formData
-      );
-      console.log("Data sent successfully:", response.data);
-      // Optionally, you can reset the form fields after successful submission
-      // setFormData({
-      //   name: 'Neeraj ',
-      //   email: 'neeraj<EMAIL>',
-      //   // Reset other fields as needed
-      // });
+      if (
+        formData.firstName.trim() === "" ||
+        formData.lastName.trim() === "" ||
+        formData.email.trim() === ""
+      ) {
+        setError("Please fill in all required fields.");
+        return; // Exit the function early to prevent form submission
+      } else {
+        // Send POST request to backend endpoint with form data
+        const response = await axios.post(
+          "http://localhost:3000/users",
+          formData
+        );
+        console.log("Data sent successfully:", response.data);
+        // Reset the form fields after successful submission
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+        });
+      }
     } catch (error) {
-      console.error("Error sending data:", error);
+      setError("Error sending data:", error);
     }
   };
   return (
@@ -33,11 +53,11 @@ const Form1 = () => {
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               Personal Information
             </h2>
-
+            {error && <p className="text-red-500">{error}</p>}
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="first-name"
+                  htmlFor="firstName"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   First name
@@ -45,8 +65,10 @@ const Form1 = () => {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="first-name"
-                    id="first-name"
+                    name="firstName"
+                    id="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
                     autoComplete="given-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -55,7 +77,7 @@ const Form1 = () => {
 
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="last-name"
+                  htmlFor="lastName"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Last name
@@ -63,8 +85,10 @@ const Form1 = () => {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="last-name"
-                    id="last-name"
+                    name="lastName"
+                    id="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
                     autoComplete="family-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -83,6 +107,8 @@ const Form1 = () => {
                     id="email"
                     name="email"
                     type="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     autoComplete="email"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -100,6 +126,8 @@ const Form1 = () => {
                     id="phone"
                     name="phone"
                     type="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     autoComplete="phone"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
