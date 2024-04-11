@@ -24,8 +24,8 @@ function App() {
     },
   ];
   return (
-    <div className="w-full flex flex-col items-center justify-center mt-20">
-      <p className="text-gray-800 my-6 text-3xl">The Carousel Show</p>
+    <div className="w-full flex flex-col items-center justify-center pt-2 bg-gradient-to-r  from-yellow-100 to-gray-300 h-screen">
+      <p className="text-gray-900 my-6 text-3xl">The Carousel Show</p>
       {/* <Form1 /> */}
       <Carousel slides={slides} />
     </div>

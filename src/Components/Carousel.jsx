@@ -11,9 +11,9 @@ const Carousel = ({ slides }) => {
   };
   return (
     <div className="relative">
-      <div className="flex justify-center items-center w-[480px]">
+      <div className="flex justify-center items-center w-[580px]">
         <img
-          className="object-fill  h-96 w-lvw rounded-xl"
+          className="object-fill  h-96 w-full rounded-xl"
           key={slides[currentIndex].id}
           src={slides[currentIndex].url}
           alt=""
